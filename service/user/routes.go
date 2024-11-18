@@ -38,7 +38,7 @@ func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	u, err := h.store.GetUserByEmail(payload.Email)
+	user, err := h.store.GetUserByEmail(payload.Email)
 	if err != nil {
 		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("user not found with given email id, please register"))
 		return
@@ -56,8 +56,14 @@ func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	token, err := auth.CreateJWT(user)
+	if err != nil {
+		utils.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
 	// Write JSON to response
-	utils.WriteJSON(w, http.StatusAccepted, u)
+	utils.WriteJSON(w, http.StatusAccepted, map[string]string{"token": token})
 
 }
 
