@@ -18,3 +18,9 @@ Content-Type: application/json
     "email": "jeraldvictor123@yahoo.com",
     "password": "Jerald@11"
 }
+
+### 
+# Get User By ID
+GET http://localhost:8081/api/v1/user/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImplcmFsZHZpY3RvcjEyM0B5YWhvby5jb20iLCJleHBpcmVzQXQiOjE3MzIwMTAzNzAsInVzZXJJZCI6IjEiLCJ1c2VyX25hbWUiOiJKZXJhbGQifQ.i7WHLQ8B8ZdLdz-lXQVg7Lu6i6q8MkTd4RZistjIDPU
+Content-Type: application/json
