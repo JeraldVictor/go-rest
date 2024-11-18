@@ -55,7 +55,25 @@ func scanRowsIntoUser(rows *sql.Rows) (*types.User, error) {
 }
 
 func (s *Store) GetUserByID(id int) (*types.User, error) {
-	return nil, nil
+	rows, err := s.db.Query("SELECT * FROM Users where id = ?", id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	user := new(types.User)
+
+	for rows.Next() {
+		user, err = scanRowsIntoUser(rows)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if user.ID == 0 {
+		return nil, fmt.Errorf("user not found")
+	}
+
+	return user, err
 }
 
 func (s *Store) CreateUser(user *types.User) error {
